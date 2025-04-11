@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ -z "${DISPLAY_WIDTH}" ]; then
+    DISPLAY_WIDTH=1366
+fi
+if [ -z "${DISPLAY_HEIGHT}" ]; then
+    DISPLAY_HEIGHT=768
+fi
+export G_SLICE=always-malloc
+
+mkdir -p "${HOME}/.vnc"
+export PASSWD_PATH="${HOME}/.vnc/passwd"
+echo ${PASSWORD} | vncpasswd -f > "${PASSWD_PATH}"
+chmod 0600 "${HOME}/.vnc/passwd"
+# 6565 = 5900 + 665
+"${NO_VNC_HOME}"/utils/novnc_proxy --vnc localhost:6565 --listen 6650 &
+echo "geometry=${DISPLAY_WIDTH}x${DISPLAY_HEIGHT}" > ~/.vnc/config
+/usr/libexec/vncserver :665 &
+sleep 2;
+pcmanfm --desktop &
+tint2
