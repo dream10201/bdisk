@@ -39,6 +39,7 @@ ENV \
     DISPLAY=:665
 COPY ./baidunetdisk_4.17.7_amd64.deb /tmp/baidu.deb
 RUN apt update \
+    && ls -als /tmp/baidu.deb
     && DEBIAN_FRONTEND=noninteractive apt install --allow-unauthenticated --no-install-recommends -y /tmp/baidu.deb \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/baidu.deb \
