@@ -17,6 +17,9 @@ jobs:
           lfs: true
       - name: Checkout LFS objects
         run: |
+          apt update
+          apt install -y git-lfs
+          git lfs install
           git lfs checkout
           git lfs pull
       - name: Set up Docker Buildx
