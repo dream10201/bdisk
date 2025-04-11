@@ -17,8 +17,8 @@ jobs:
           lfs: true
       - name: Checkout LFS objects
         run: |
-          apt update
-          apt install -y git-lfs
+          sudo apt update
+          sudo apt install -y git git-lfs
           git lfs install
           git lfs checkout
           git lfs pull
