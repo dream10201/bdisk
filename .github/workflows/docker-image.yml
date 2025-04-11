@@ -40,14 +40,3 @@ jobs:
           tags: |
             ghcr.io/dream10201/bdisk:latest
             docker.io/xiuxiu10201/bdisk:latest
-
-      - name: Release and push (non-master branch)
-        # if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'master' }}
-        if: ${{ github.ref_name == 'master' }}
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/dream10201/bdisk:dev
-            docker.io/xiuxiu10201/bdisk:dev
