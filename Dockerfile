@@ -1,17 +1,16 @@
 FROM debian:latest AS base
 ENV LANG=zh_CN.UTF-8 \
-    LC_ALL=zh_CN.UTF-8
+    LC_ALL=zh_CN.UTF-8 \
+    DEBIAN_FRONTEND=noninteractive
 RUN apt update \
-    && DEBIAN_FRONTEND=noninteractive \
-    && apt install --no-install-recommends -y ca-certificates wget x11-xkb-utils xkbset curl unzip locales locales-all fonts-nanum fonts-noto-cjk fonts-noto-cjk-extra fonts-dejavu fonts-liberation fonts-noto fonts-unfonts-core fonts-unfonts-extra \
+    && apt install --no-install-recommends -y ca-certificates x11-xkb-utils xkbset wget curl unzip locales locales-all fonts-nanum fonts-noto-cjk fonts-noto-cjk-extra fonts-dejavu fonts-liberation fonts-noto fonts-unfonts-core fonts-unfonts-extra \
     && locale-gen zh_CN.UTF-8 \
     && update-locale LANG=zh_CN.UTF-8 \
     && echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 FROM base AS desktop
-RUN DEBIAN_FRONTEND=noninteractive \
-    # thunar 
-    && apt install --no-install-recommends -y pcmanfm tint2 openbox xauth xinit
+ENV G_SLICE=always-malloc
+RUN apt install --no-install-recommends -y pcmanfm tint2 openbox xauth xinit
 
 FROM desktop AS tigervnc
 RUN wget --no-check-certificate -qO- https://sourceforge.net/projects/tigervnc/files/stable/1.15.0/tigervnc-1.15.0.x86_64.tar.gz | tar xz --strip 1 -C /
@@ -19,7 +18,7 @@ RUN wget --no-check-certificate -qO- https://sourceforge.net/projects/tigervnc/f
 
 FROM tigervnc AS novnc
 ENV NO_VNC_HOME=/usr/share/usr/local/share/noVNCdim
-RUN DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -y python3-numpy libasound2 libxshmfence1 libxcvt0 libgbm1 \
+RUN apt install --no-install-recommends -y python3-numpy libxshmfence1 libasound2 libxcvt0 libgbm1 \
     && mkdir -p "${NO_VNC_HOME}/utils/websockify" \
     && wget --no-check-certificate -qO- "https://github.com/novnc/noVNC/archive/v1.6.0.tar.gz" | tar xz --strip 1 -C "${NO_VNC_HOME}" \
     && wget --no-check-certificate -qO- "https://github.com/novnc/websockify/archive/v0.13.0.tar.gz" | tar xz --strip 1 -C "${NO_VNC_HOME}/utils/websockify" \
