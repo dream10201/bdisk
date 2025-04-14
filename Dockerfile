@@ -40,8 +40,8 @@ RUN  \
     && mkdir -p /opt/.config/baidunetdisk \
     && ln -s /usr/share/applications/baidunetdisk.desktop /opt/Desktop \
     && ln -s /usr/share/applications/pcmanfm.desktop /opt/Desktop \
-    && apt clean -y
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && apt clean -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 FROM baidunetdisk
