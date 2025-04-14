@@ -17,4 +17,5 @@ echo "geometry=${DISPLAY_WIDTH}x${DISPLAY_HEIGHT}" > ~/.vnc/config
 /usr/libexec/vncserver :665 &
 sleep 2;
 pcmanfm --desktop &
+/opt/baidunetdisk/baidunetdisk --no-sandbox &
 tint2
