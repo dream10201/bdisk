@@ -12,8 +12,8 @@ RUN  \
     && mkdir -p /opt/Desktop \
     && mkdir -p /opt/Downloads \
     && mkdir -p /opt/.config/baidunetdisk \
-    && cp /usr/share/applications/baidunetdisk.desktop /opt/Desktop \
-    && cp /usr/share/applications/pcmanfm.desktop /opt/Desktop \
+    && ln -s /usr/share/applications/baidunetdisk.desktop /opt/Desktop \
+    && ln -s /usr/share/applications/pcmanfm.desktop /opt/Desktop \
     && apt clean -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
