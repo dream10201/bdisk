@@ -6,7 +6,7 @@ ENV \
     DISPLAY=:665 \
     WEB_PORT=6650
 RUN  \
-    && wget --no-check-certificate -q "https://media.githubusercontent.com/media/dream10201/bdisk/refs/heads/master/bin/baidunetdisk_4.17.7_amd64.deb?download=true" -O /tmp/tmp.deb \
+    wget --no-check-certificate -q "https://media.githubusercontent.com/media/dream10201/bdisk/refs/heads/master/bin/baidunetdisk_4.17.7_amd64.deb?download=true" -O /tmp/tmp.deb \
     && DEBIAN_FRONTEND=noninteractive apt install --allow-unauthenticated --no-install-recommends -y /tmp/tmp.deb \
     && rm -rf /tmp/tmp.deb \
     && mkdir -p /opt/Desktop \
